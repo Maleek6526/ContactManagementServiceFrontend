@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import registerStyles from "./register.module.css";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -15,8 +15,43 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (error || success) {
+      const timer = setTimeout(() => {
+        setError("");
+        setSuccess("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, success]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const validateInputs = () => {
+    const { name, email, phoneNumber, password } = formData;
+  
+    if (!name || !email || !phoneNumber || !password) {
+      return "All fields are required!";
+    }
+  
+    // Strong Email Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address!";
+    }
+  
+    // Strong Phone Number Validation (10-15 digits, must not start with 0)
+    const phoneRegex = /^(?:\+234|0)(70|80|81|90|91)[0-9]{8}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      return "Please enter a valid phone number.";
+    }
+  
+    if (password.length < 8 || password.length > 12) {
+      return "Password must be between 8 and 12 characters!";
+    }
+  
+    return null;
   };
 
   const handleSubmit = async (e) => {
@@ -24,21 +59,12 @@ const Register = () => {
     setError("");
     setSuccess("");
 
-    if (!formData.name || !formData.email || !formData.phoneNumber || !formData.password) {
-      setError("All fields are required!");
+    const validationError = validateInputs();
+    if (validationError) {
+      setError(validationError);
       return;
     }
-  
-    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      setError("Please enter a valid email address!");
-      return;
-    }
-  
-    if (formData.password.length < 8 && formData.password.length > 12) {
-      setError("Password must be at least 8 characters 12 characters long!");
-      return;
-    }
-  
+
     try {
       const response = await fetch("http://localhost:8080/api/users/register", {
         method: "POST",
@@ -47,22 +73,15 @@ const Register = () => {
         },
         body: JSON.stringify(formData),
       });
-  
-      let data;
-      try {
-        data = await response.json();
-      } catch (jsonError) {
-        throw new Error("Invalid response from server.");
-      }
-  
+
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || `Error ${response.status}: ${response.statusText}`);
+        throw new Error(data.message || "Registration failed!");
       }
-  
+
       setSuccess("Registration successful! Please verify your email.");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
-      console.error("Registration failed:", err.message); // Debugging in console
       setError(err.message || "Something went wrong! Please try again.");
     }
   };
