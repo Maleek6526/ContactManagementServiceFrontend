@@ -17,6 +17,9 @@ const LandingPage = () => {
         <Link to="/login">
           <button className={styles.button}>Log In</button>
         </Link>
+        <Link to="/guest">
+          <button className={styles.guestButton}>Continue as Guest</button>
+        </Link>
       </div>
     </div>
   );

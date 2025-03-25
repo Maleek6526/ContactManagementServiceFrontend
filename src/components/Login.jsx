@@ -53,7 +53,10 @@ const Login = () => {
       if (!response.ok) {
         throw new Error(data.error || data.message || "Login failed!");
       }
-  
+
+      // Store user data in localStorage
+      localStorage.setItem("user", JSON.stringify(data));
+
       setSuccess(data.message || "Login successful!");
       setTimeout(() => {
         setSuccess("");
