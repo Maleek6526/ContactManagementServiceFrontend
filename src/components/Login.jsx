@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import api from "../api/api";
-import loginStyles from "./login.module.css";
 import { useNavigate } from "react-router-dom";
+import loginStyles from "./login.module.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -13,33 +12,56 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateInputs = () => {
+    const { email, password } = formData;
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address!";
+    }
+
+    if (password.length < 8 || password.length > 12) {
+      return "Password must be between 8 and 12 characters long!";
+    }
+
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
-    if (!formData.email || !formData.password) {
-      setError("Email and password are required!");
+  
+    const validationError = validateInputs();
+    if (validationError) {
+      setError(validationError);
+      setTimeout(() => setError(""), 5000);
       return;
     }
-
-    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      setError("Invalid email format!");
-      return;
-    }
-
-    if (formData.password.length < 8 && formData.password.length > 12) {
-      setError("Password must be at least 8 characters 12 characters long!");
-      return;
-    }
-    
+  
     try {
-      const response = await api.post("/users/login", formData);
-      localStorage.setItem("token", response.data.token);
-      setSuccess("Login successful!");
-      setTimeout(() => navigate("/dashboard"), 2000);
+      const response = await fetch("http://localhost:8080/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.error || data.message || "Login failed!");
+      }
+  
+      setSuccess(data.message || "Login successful!");
+      setTimeout(() => {
+        setSuccess("");
+        navigate("/dashboard");
+      }, 2000);
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid Credentials!");
+      setError(err.message || "Something went wrong! Please try again.");
+      setTimeout(() => setError(""), 5000);
     }
   };
 
@@ -49,8 +71,22 @@ const Login = () => {
       {error && <p className={loginStyles.error}>{error}</p>}
       {success && <p className={loginStyles.success}>{success}</p>}
       <form onSubmit={handleSubmit} className={loginStyles.form}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Email" 
+          value={formData.email}
+          onChange={handleChange} 
+          required 
+        />
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+          value={formData.password}
+          onChange={handleChange} 
+          required 
+        />
         <button type="submit">Login</button>
       </form>
       <p className={loginStyles.switchAuth}>

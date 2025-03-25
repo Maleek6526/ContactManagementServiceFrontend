@@ -35,13 +35,11 @@ const Register = () => {
       return "All fields are required!";
     }
   
-    // Strong Email Validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       return "Please enter a valid email address!";
     }
   
-    // Strong Phone Number Validation (10-15 digits, must not start with 0)
     const phoneRegex = /^(?:\+234|0)(70|80|81|90|91)[0-9]{8}$/;
     if (!phoneRegex.test(phoneNumber)) {
       return "Please enter a valid phone number.";
