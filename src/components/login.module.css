@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("/src/assets/jackson-sophat-_t-l5FFH8VA-unsplash.jpg") no-repeat center center/cover;
+  font-family: Arial, sans-serif;
+}
+
+.loginContainer {
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.success {
+  color: green;
+  font-size: 14px;
+}
+
+.form input {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 90%;
+}
+
+button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.switchAuth {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switchAuth a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.switchAuth a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,57 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .landingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to right, #535557, #80b4ec);
+    color: white;
+    text-align: center;
+  }
+  
+  .textContainer {
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    color: #ddd;
+    margin-top: 10px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #f8f9fa;
+    color: #0056b3;
+  }
+  
