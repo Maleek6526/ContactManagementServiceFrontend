@@ -1,4 +1,5 @@
 .sidebar {
+  margin-top: 100px;
   background: #1a1d36;
   color: white;
   width: 250px;
@@ -6,19 +7,14 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease-in-out;
   position: fixed;
   left: 0;
   top: 0;
+  transition: transform 0.3s ease-in-out;
 }
 
 .closed {
-  width: 80px;
-  overflow: hidden;
-}
-
-.sidebar:hover {
-  width: 250px;
+  transform: translateX(-100%);
 }
 
 .navList {
@@ -45,12 +41,16 @@
   font-weight: bold;
 }
 
-.toggleButton {
+/* Hamburger Button Always Visible */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  margin-top: 60px;
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
-  margin-bottom: 20px;
-  align-self: flex-end;
+  z-index: 1000;
 }
