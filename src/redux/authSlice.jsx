@@ -87,7 +87,7 @@ import api from "../api/api";
 
 const API_URL = "/auth";
 
-// 🔹 Register User
+
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
@@ -100,7 +100,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// 🔹 Login User
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (userData, { rejectWithValue }) => {
@@ -120,7 +119,6 @@ const initialState = {
   error: null,
 };
 
-// 🔹 Auth Slice
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -128,14 +126,14 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      state.error = null; // 🔹 Clears error state when logging out
+      state.error = null; 
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
     builder
-      // 🔹 Register User Cases
+
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -152,7 +150,7 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
-      // 🔹 Login User Cases
+
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;

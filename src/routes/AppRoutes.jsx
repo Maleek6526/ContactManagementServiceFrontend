@@ -19,18 +19,15 @@ const ProtectedRoute = ({ children }) => {
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public Routes */}
+
       <Route path="/" element={<LandingPage />} />
       <Route path="/guest" element={<GuestDashboard />} />
 
-      {/* Login & Register only accessible for guests */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected Routes - Requires Login */}
       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
-      {/* Catch All - Redirect to Home */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
