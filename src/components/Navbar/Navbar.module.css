@@ -2,21 +2,59 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #1a1d36;
+  padding: 15px 20px;
+  background-color: #0d1b2a; /* Professional dark navy */
   color: white;
-  height: 60px;
+  height: 70px;
   width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
 }
 
-.user {
+.navbar:hover {
+  background-color: #1b263b; /* Slightly lighter navy on hover */
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.userSection {
   display: flex;
+  margin-right: 100px;
   align-items: center;
   gap: 10px;
-  font-weight: bold;
+}
+
+.userIcon {
+  font-size: 28px;
+  color: #fca311; /* Eye-catching accent color */
+}
+
+.username {
   font-size: 16px;
+  font-weight: bold;
   white-space: nowrap;
-  margin-right: 60px;
+}
+
+.logoutButton {
+  background-color: #f04e4e;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.logoutButton:hover {
+  background-color: #c0392b;
 }
 
 @media screen and (max-width: 768px) {
@@ -24,8 +62,16 @@
     flex-direction: row;
     padding: 10px;
   }
-  
-  .user {
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .userIcon {
+    font-size: 24px;
+  }
+
+  .username {
     font-size: 14px;
   }
 }

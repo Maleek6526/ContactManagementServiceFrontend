@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./GuestDashboard.module.css";
 
-const MAX_GUEST_ATTEMPTS = 5;
+const MAX_GUEST_ATTEMPTS = 3;
 
 const GuestDashboard = () => {
   const [phoneNumber, setPhoneNumber] = useState("");

@@ -1,37 +1,56 @@
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #1a1a2e;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  .sidebar h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin: 15px 0;
-  }
-  
-  .sidebar ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    display: block;
-    padding: 10px;
-    transition: 0.3s;
-  }
-  
-  .sidebar ul li a:hover {
-    background: #0f3460;
-  }
-  
+  background: #1a1d36;
+  color: white;
+  width: 250px;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.closed {
+  width: 80px;
+  overflow: hidden;
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+}
+
+.navList li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.navList li:hover {
+  background: #2e3153;
+}
+
+.logout {
+  margin-top: auto;
+  color: #f04e4e;
+  font-weight: bold;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  align-self: flex-end;
+}
