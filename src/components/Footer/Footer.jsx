@@ -5,7 +5,7 @@ import { FaGithub, FaTwitter, FaWhatsapp, FaTelegram, FaLinkedin, FaInstagram, F
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p>&copy; {new Date().getFullYear()} TrueCaller Clone</p>
+      <p className={styles.ptag}>&copy; {new Date().getFullYear()} TrueCaller Clone</p>
       <p className={styles.helpText}>Need any help?</p>
       <div className={styles.socialIcons}>
         <a href="https://github.com" className={styles.icon} aria-label="GitHub"><FaGithub /></a>
