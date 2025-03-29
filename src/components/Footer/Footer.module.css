@@ -1,30 +1,36 @@
 .footer {
-  background-color: #0f3460;
+  background: #1a1d36;
   color: white;
-  text-align: center;
   padding: 20px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.footer p {
-  margin-bottom: 10px;
+.helpText {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #f0a500;
 }
 
 .socialIcons {
   display: flex;
   gap: 15px;
-  justify-content: center;
+  margin-top: 10px;
 }
 
 .icon {
   color: white;
-  font-size: 1.5rem;
-  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  font-size: 24px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .icon:hover {
   transform: scale(1.2);
-  color: #00aaff;
+  color: #f0a500;
+}
+
+p{
+  color: white;
 }
