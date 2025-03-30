@@ -13,6 +13,7 @@ const ContactList = () => {
     phoneNumber: ""  
   });  
   const [showForm, setShowForm] = useState(false);  
+  const [message, setMessage] = useState("");
   
   const isValidPhoneNumber = (phoneNumber) => /^(?:\+234|0)(70|80|81|90|91)[0-9]{8}$/.test(phoneNumber);  
   const isValidEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);  
@@ -57,13 +58,13 @@ const ContactList = () => {
   const handleSearch = (e) => {  
     setSearchTerm(e.target.value);  
   };  
-  
+
   const handleSelect = (id) => {  
     setSelectedContacts((prev) =>  
       prev.includes(id) ? prev.filter((contactId) => contactId !== id) : [...prev, id]  
     );  
   };  
-  
+
   const handleSelectAll = () => {  
     if (selectAll) {  
       setSelectedContacts([]);  
@@ -72,14 +73,43 @@ const ContactList = () => {
     }  
     setSelectAll(!selectAll);  
   };  
-  
+
   const handleDelete = () => {  
-    setContacts(contacts.filter((contact) => !selectedContacts.includes(contact.id)));  
-    setSelectedContacts([]);  
-    setSelectAll(false);  
-    fetchContacts(); // Refresh contacts after deletion  
-  };  
+    const userData = JSON.parse(localStorage.getItem("user"));  
+    const userId = userData?.userId;  
   
+    if (!userId) {  
+      console.error("No user ID found.");  
+      return;  
+    }  
+    
+    if (selectedContacts.length === 0 && !selectAll) {  
+      setMessage("No contacts selected to delete.");  
+      return;  
+    }  
+  
+
+    fetch(`http://localhost:8080/api/users/delete-all/${userId}`, {  
+      method: "DELETE"  
+    })  
+      .then((response) => {  
+        if (!response.ok) {  
+          throw new Error(`HTTP error! Status: ${response.status}`);  
+        }  
+        return response.json();  
+      })  
+      .then((data) => {  
+        setMessage(data.message || "All contacts deleted successfully.");
+        fetchContacts();
+        setSelectedContacts([]);  
+        setSelectAll(false);  
+      })  
+      .catch((error) => {  
+        console.error("Error deleting contacts:", error);  
+        setMessage("Error deleting contacts.");
+      });  
+  };    
+
   const handleInputChange = (e) => {  
     const { name, value } = e.target;  
     setNewContact((prev) => ({  
@@ -87,7 +117,7 @@ const ContactList = () => {
       [name]: value  
     }));  
   };  
-  
+
   const handleAddContact = () => {  
     const userData = JSON.parse(localStorage.getItem("user"));  
     const userEmail = userData?.userId;  
@@ -128,9 +158,9 @@ const ContactList = () => {
         return response.json();  
       })  
       .then(() => {  
-        fetchContacts(); // Refresh contacts after adding new contact  
+        fetchContacts(); 
         setNewContact({ userEmail: "", name: "", email: "", phoneNumber: "" });  
-        setShowForm(false); // Hide form after submission  
+        setShowForm(false);
       })  
       .catch((error) => console.error("Error adding contact:", error));  
   };  
@@ -145,6 +175,7 @@ const ContactList = () => {
   return (  
     <div className={styles.container}>  
       <h2>Contacts</h2>  
+      {message && <p className={styles.message}>{message}</p>} {}
       <input  
         type="text"  
         placeholder="Search contacts..."  
