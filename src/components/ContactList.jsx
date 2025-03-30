@@ -13,8 +13,8 @@ const ContactList = () => {
     phoneNumber: ""  
   });  
   const [showForm, setShowForm] = useState(false);  
-  const [message, setMessage] = useState("");
-  
+  const [message, setMessage] = useState("");  
+
   const isValidPhoneNumber = (phoneNumber) => /^(?:\+234|0)(70|80|81|90|91)[0-9]{8}$/.test(phoneNumber);  
   const isValidEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);  
 
@@ -28,13 +28,13 @@ const ContactList = () => {
       console.error("No user data found in localStorage.");  
       return;  
     }  
-    
-    const userEmail = userData?.userId;  
+
+    const userEmail = userData.userId;  
     if (!userEmail) {  
       console.error("No user email found in userData.");  
       return;  
     }  
-    
+
     console.log("Fetching contacts for:", userEmail);  
 
     fetch(`http://localhost:8080/api/users/view/${userEmail}`)  
@@ -76,39 +76,60 @@ const ContactList = () => {
 
   const handleDelete = () => {  
     const userData = JSON.parse(localStorage.getItem("user"));  
-    const userId = userData?.userId;  
-  
+    const userId = userData.userId;  
+
     if (!userId) {  
       console.error("No user ID found.");  
       return;  
     }  
-    
+
     if (selectedContacts.length === 0 && !selectAll) {  
       setMessage("No contacts selected to delete.");  
       return;  
     }  
-  
 
-    fetch(`http://localhost:8080/api/users/delete-all/${userId}`, {  
-      method: "DELETE"  
-    })  
-      .then((response) => {  
-        if (!response.ok) {  
-          throw new Error(`HTTP error! Status: ${response.status}`);  
-        }  
-        return response.json();  
+    if (selectAll) {  
+      // Call API to delete all contacts for the user  
+      fetch(`http://localhost:8080/api/users/delete-all/${userId}`, {  
+        method: "DELETE"  
       })  
-      .then((data) => {  
-        setMessage(data.message || "All contacts deleted successfully.");
-        fetchContacts();
-        setSelectedContacts([]);  
-        setSelectAll(false);  
+        .then((response) => {  
+          if (!response.ok) {  
+            throw new Error(`HTTP error! Status: ${response.status}`);  
+          }  
+          return response.json();  
+        })  
+        .then((data) => {  
+          setMessage(data.message || "All contacts deleted successfully.");  
+          fetchContacts();  
+          setSelectedContacts([]);  
+          setSelectAll(false);  
+        })  
+        .catch((error) => {  
+          console.error("Error deleting contacts:", error);  
+          setMessage("Error deleting contacts.");  
+        });  
+    } else if (selectedContacts.length > 0) {  
+      // Call API to delete only the selected contacts  
+      fetch(`http://localhost:8080/api/users/delete-selected`, {  
+        method: "DELETE",  
+        headers: {  
+          "Content-Type": "application/json"  
+        },  
+        body: JSON.stringify({ userId, contactIds: selectedContacts }), // Only userId and selected contact IDs  
       })  
-      .catch((error) => {  
-        console.error("Error deleting contacts:", error);  
-        setMessage("Error deleting contacts.");
-      });  
-  };    
+        .then((response) => {  
+          if (!response.ok) {  
+            throw new Error(`HTTP error! Status: ${response.status}`);  
+          }  
+          return response.json();  
+        })  
+        .then((data) => {  
+          setMessage(data.message || "Selected contacts deleted successfully.");  
+          fetchContacts();  
+        })
+      }
+  };  
 
   const handleInputChange = (e) => {  
     const { name, value } = e.target;  
