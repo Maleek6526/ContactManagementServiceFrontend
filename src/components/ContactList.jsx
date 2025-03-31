@@ -65,7 +65,7 @@ const ContactList = () => {
 
   const handleUpdateClick = (contact) => {
     setUpdateContact({
-      userEmail: JSON.parse(localStorage.getItem("user")).userId, // Get user email from local storage
+      userEmail: JSON.parse(localStorage.getItem("user")).userId,
       oldPhoneNumber: contact.phoneNumber,
       newName: contact.name || "",
       newPhoneNumber: "",
@@ -136,14 +136,13 @@ const ContactList = () => {
       return;  
     }  
   
-    // Convert selected contact IDs to phone numbers
     const selectedPhoneNumbers = contacts
       .filter(contact => selectedContacts.includes(contact.id))
       .map(contact => contact.phoneNumber);
   
     const requestBody = {
       userEmail: userId, 
-      phoneNumbers: selectedPhoneNumbers // Change from contactIds to phoneNumbers
+      phoneNumbers: selectedPhoneNumbers
     };
   
     console.log("Request Body:", requestBody);
