@@ -6,6 +6,14 @@ const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState("");  
   const [selectedContacts, setSelectedContacts] = useState([]);  
   const [selectAll, setSelectAll] = useState(false);  
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [updateContact, setUpdateContact] = useState({
+  userEmail: "",
+  oldPhoneNumber: "",
+  newName: "",
+  newPhoneNumber: "",
+  newEmail: "",
+  });
   const [newContact, setNewContact] = useState({  
     userEmail: "",  
     name: "",  
@@ -55,6 +63,41 @@ const ContactList = () => {
       .catch((error) => console.error("Error fetching contacts:", error));  
   };  
 
+  const handleUpdateClick = (contact) => {
+    setUpdateContact({
+      userEmail: JSON.parse(localStorage.getItem("user")).userId, // Get user email from local storage
+      oldPhoneNumber: contact.phoneNumber,
+      newName: contact.name || "",
+      newPhoneNumber: "",
+      newEmail: contact.email || "",
+    });
+    setShowUpdateForm(true);
+  };
+
+  const handleUpdateSubmit = () => {
+    if (!updateContact.newPhoneNumber) {
+      alert("New phone number is required.");
+      return;
+    }
+
+    if (updateContact.oldPhoneNumber === updateContact.newPhoneNumber) {
+      alert("New phone number must be different from the old phone number.");
+      return;
+    }
+
+
+    fetch("http://localhost:8080/api/users/update", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updateContact),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        fetchContacts();
+        setShowUpdateForm(false);
+      })
+      .catch((error) => console.error("Error updating contact:", error));
+  };
   const handleSearch = (e) => {  
     setSearchTerm(e.target.value);  
   };  
@@ -64,6 +107,11 @@ const ContactList = () => {
       prev.includes(id) ? prev.filter((contactId) => contactId !== id) : [...prev, id]  
     );  
   };  
+
+  const handleUpdateChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateContact((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSelectAll = () => {  
     if (selectAll) {  
@@ -76,20 +124,31 @@ const ContactList = () => {
 
   const handleDelete = () => {  
     const userData = JSON.parse(localStorage.getItem("user"));  
-    const userId = userData.userId;  
-
+    const userId = userData?.userId;  
+  
     if (!userId) {  
       console.error("No user ID found.");  
       return;  
     }  
-
+  
     if (selectedContacts.length === 0 && !selectAll) {  
       setMessage("No contacts selected to delete.");  
       return;  
     }  
-
+  
+    // Convert selected contact IDs to phone numbers
+    const selectedPhoneNumbers = contacts
+      .filter(contact => selectedContacts.includes(contact.id))
+      .map(contact => contact.phoneNumber);
+  
+    const requestBody = {
+      userEmail: userId, 
+      phoneNumbers: selectedPhoneNumbers // Change from contactIds to phoneNumbers
+    };
+  
+    console.log("Request Body:", requestBody);
+  
     if (selectAll) {  
-      // Call API to delete all contacts for the user  
       fetch(`http://localhost:8080/api/users/delete-all/${userId}`, {  
         method: "DELETE"  
       })  
@@ -110,26 +169,36 @@ const ContactList = () => {
           setMessage("Error deleting contacts.");  
         });  
     } else if (selectedContacts.length > 0) {  
-      // Call API to delete only the selected contacts  
-      fetch(`http://localhost:8080/api/users/delete-selected`, {  
+      fetch(`http://localhost:8080/api/users/delete`, {  
         method: "DELETE",  
         headers: {  
           "Content-Type": "application/json"  
         },  
-        body: JSON.stringify({ userId, contactIds: selectedContacts }), // Only userId and selected contact IDs  
+        body: JSON.stringify(requestBody)  
       })  
-        .then((response) => {  
-          if (!response.ok) {  
-            throw new Error(`HTTP error! Status: ${response.status}`);  
-          }  
-          return response.json();  
-        })  
-        .then((data) => {  
-          setMessage(data.message || "Selected contacts deleted successfully.");  
-          fetchContacts();  
-        })
-      }
-  };  
+      .then((response) => {  
+        if (!response.ok) {  
+          throw new Error(`HTTP error! Status: ${response.status}`);  
+        }  
+        return response.json();  
+      })  
+      .then((data) => {  
+        console.log("Delete Response:", data);  
+  
+        if (!data.userEmail || !Array.isArray(data.phoneNumbers)) {
+          throw new Error("Invalid response format from server.");
+        }
+  
+        setMessage(`Deleted contacts for ${data.userEmail}.`);  
+        fetchContacts();  
+      })  
+      .catch((error) => {  
+        console.error("Error deleting contacts:", error);  
+        setMessage("Error deleting contacts.");  
+      });
+    }  
+  };
+  
 
   const handleInputChange = (e) => {  
     const { name, value } = e.target;  
@@ -290,13 +359,42 @@ const ContactList = () => {
                 <td>{contact.addedBy}</td>  
                 <td>{contact.spam ? "Yes" : "No"}</td>  
                 <td>  
-                  <button className={styles.updateButton}>Update</button>  
+                <button className={styles.updateButton} onClick={() => handleUpdateClick(contact)}>Update</button>
                 </td>  
               </tr>  
             ))}  
           </tbody>  
         </table>  
       )}  
+
+      {showUpdateForm && (
+        <div className={styles.updateFormContainer}>
+          <h3>Update Contact</h3>
+          <input type="text" name="newName" placeholder="New Name" value={updateContact.newName} onChange={handleUpdateChange} className={styles.formInput} />
+          <input type="email" name="newEmail" placeholder="New Email" value={updateContact.newEmail} onChange={handleUpdateChange} className={styles.formInput} />
+          <input type="tel" name="newPhoneNumber" placeholder="New Phone Number" value={updateContact.newPhoneNumber} onChange={handleUpdateChange} className={styles.formInput} />
+          <button 
+      onClick={() => {
+        if (!isValidEmail(updateContact.newEmail)) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+        if (!isValidPhoneNumber(updateContact.newPhoneNumber)) {
+          alert("Please enter a valid Nigerian phone number.");
+          return;
+        }
+        handleUpdateSubmit();
+      }} 
+      className={styles.submitButton}
+    >
+      Submit
+    </button>
+    <button onClick={() => setShowUpdateForm(false)} className={styles.cancelButton}>
+      Cancel
+    </button>
+  </div>
+      )}
+
     </div>  
   );  
 };  
