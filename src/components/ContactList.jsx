@@ -7,6 +7,7 @@ const ContactList = () => {
   const [selectedContacts, setSelectedContacts] = useState([]);  
   const [selectAll, setSelectAll] = useState(false);  
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [blockedContacts, setBlockedContacts] = useState([]);
   const [updateContact, setUpdateContact] = useState({
   userEmail: "",
   oldPhoneNumber: "",
@@ -22,6 +23,12 @@ const ContactList = () => {
   });  
   const [showForm, setShowForm] = useState(false);  
   const [message, setMessage] = useState("");  
+
+  const [isBlocked, setIsBlocked] = useState(false);
+
+  const handleBlockClick = () => {
+    setIsBlocked(true);
+  };
 
   const isValidPhoneNumber = (phoneNumber) => /^(?:\+234|0)(70|80|81|90|91)[0-9]{8}$/.test(phoneNumber);  
   const isValidEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);  
@@ -197,6 +204,47 @@ const ContactList = () => {
       });
     }  
   };
+
+
+
+
+  const handleBlockContact = async (phoneNumber) => {
+    // Disable the button immediately after clicking
+    setBlockedContacts((prev) => ({
+      ...prev,
+      [phoneNumber]: true, // Mark this phone number as blocked immediately
+    }));
+  
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const userEmail = userData?.userId;
+  
+    if (!userEmail) {
+      console.error("No user email found.");
+      return;
+    }
+  
+    const requestBody = {
+      userEmail,
+      phoneNumber,
+    };
+  
+    try {
+      const response = await fetch("http://localhost:8080/block/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("Block Response:", data);
+    } catch (error) {
+      console.error("Error blocking contact:", error);
+    }
+  };
   
 
   const handleInputChange = (e) => {  
@@ -359,6 +407,13 @@ const ContactList = () => {
                 <td>{contact.spam ? "Yes" : "No"}</td>  
                 <td>  
                 <button className={styles.updateButton} onClick={() => handleUpdateClick(contact)}>Update</button>
+                  <button 
+    className={styles.blockButton} 
+    onClick={() => handleBlockContact(contact.phoneNumber)}
+    disabled={blockedContacts[contact.phoneNumber]} // Disable immediately
+  >
+    {blockedContacts[contact.phoneNumber] ? "Blocked" : "Block"}
+  </button>
                 </td>  
               </tr>  
             ))}  

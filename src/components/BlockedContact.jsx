@@ -8,6 +8,7 @@ const BlockedContacts = () => {
     error: null,
   });
   const intervalRef = useRef(null);
+  const [unblocking, setUnblocking] = useState({}); 
 
   const fetchBlockedContacts = async () => {
     try {
@@ -35,39 +36,43 @@ const BlockedContacts = () => {
   };
   
 
-  const handleUnblock = async (contactId) => {
+
+  const handleUnblock = async (phoneNumber) => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       if (!user || !user.userId) {
-        throw new Error("User not found in localStorage.");
+        throw new Error("User email not found in localStorage.");
       }
-
+  
       const response = await fetch(`http://localhost:8080/block/remove`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: user.userId,
-          contactId: contactId,
+          userEmail: user.userId,  // ✅ Fix: Use `userEmail` instead of `userId`
+          phoneNumber: phoneNumber,  // ✅ Make sure this is the phone number
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-
-      // If unblock was successful, update the state
+  
       setState((prevState) => ({
         ...prevState,
         blockedContacts: prevState.blockedContacts.filter(
-          (contact) => contact.id !== contactId
+          (contact) => contact.phoneNumber !== phoneNumber
         ),
       }));
     } catch (error) {
-      setState({ ...state, error: error.message });
+      setState((prevState) => ({
+        ...prevState,
+        error: error.message,
+      }));
     }
   };
+  
 
   useEffect(() => {
     fetchBlockedContacts();
@@ -86,21 +91,21 @@ const BlockedContacts = () => {
       ) : state.error ? (
         <p className={styles.error}>{state.error}</p>
       ) : state.blockedContacts.length > 0 ? (
-        <ul className={styles.list}>
-          {state.blockedContacts.map((contact) => (
-            <li key={contact.id} className={styles.contactItem}>
-              <span className={styles.name}>{contact.name}</span>
-              <span className={styles.phone}>{contact.phoneNumber}</span>
-              <span className={styles.email}>{contact.email}</span>
-              <button
-                className={styles.unblockButton}
-                onClick={() => handleUnblock(contact.id)}
-              >
-                Unblock
-              </button>
-            </li>
-          ))}
-        </ul>
+<ul className={styles.list}>
+  {state.blockedContacts.map((contact, index) => (
+    <li key={`${contact.phoneNumber}-${index}`} className={styles.contactItem}>
+      <span className={styles.name}>{contact.name}</span>
+      <span className={styles.phone}>{contact.phoneNumber}</span>
+      <span className={styles.email}>{contact.email}</span>
+      <button
+        className={styles.unblockButton}
+        onClick={() => handleUnblock(contact.phoneNumber)}
+      >
+        Unblock
+      </button>
+    </li>
+  ))}
+</ul>
       ) : (
         <p>No blocked contacts found.</p>
       )}

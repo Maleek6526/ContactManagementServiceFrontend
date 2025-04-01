@@ -175,3 +175,10 @@ html, body {
   background: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
+
+.blockbutton {
+  margin-left: 20px;
+  gap: 10px;  
+  background: #dc3545;  
+  color: white;  
+}  
