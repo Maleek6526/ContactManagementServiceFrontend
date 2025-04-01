@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import Card from "../Card/Card";
 import NumberVerification from "../Sidebar/NumberVerification";
 import ContactList from "../ContactList";
+import BlockedContacts from "../BlockedContact";
 import styles from "./Dashboard.module.css";
 import { motion } from "framer-motion";
 
@@ -17,6 +18,7 @@ const Dashboard = () => {
       <Sidebar setActiveComponent={setActiveComponent} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className={`${styles.content} ${isSidebarOpen ? styles.contentShift : ""}`}>
         <Navbar />
+        
         {activeComponent === "home" ? (
           <motion.div 
             className={styles.cards} 
@@ -38,9 +40,12 @@ const Dashboard = () => {
           <ContactList />
         ) : activeComponent === "numberVerification" ? (
           <NumberVerification />
+        ) : activeComponent === "blockedContacts" ? (
+          <BlockedContacts />
         ) : (
           <div>Component Not Found</div>
         )}
+        
         <Footer />
       </div>
     </div>
