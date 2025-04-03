@@ -1,0 +1,62 @@
+.settingsContainer {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2{
+    color: black;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.darkMode {
+    background-color: #121212;
+    color: white;
+}
+
+.darkMode h2 {
+    color: white;
+}
+
+.darkMode .settingsContainer {
+    background: #1e1e1e;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.darkMode .button {
+    background-color: #444;
+    color: white;
+}
+
+.darkMode .button:hover {
+    background-color: #666;
+}
+    

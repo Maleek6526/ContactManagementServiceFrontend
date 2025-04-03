@@ -69,3 +69,71 @@
     color: #333;
     margin: 5px 0;
   }
+
+  @media screen and (max-width: 768px) {
+    .container {
+      max-width: 90%;
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+  
+    p {
+      font-size: 13px;
+    }
+  
+    .inputField {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .verifyBtn {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .resultCard {
+      padding: 8px;
+    }
+  
+    .resultCard p {
+      font-size: 13px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .container {
+      max-width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  
+    h1 {
+      font-size: 18px; 
+    }
+  
+    p {
+      font-size: 12px;
+    }
+  
+    .inputField {
+      font-size: 13px;
+      padding: 7px;
+    }
+  
+    .verifyBtn {
+      font-size: 13px;
+      padding: 7px;
+    }
+  
+    .resultCard {
+      padding: 6px;
+    }
+  
+    .resultCard p {
+      font-size: 12px;
+    }
+  }
+  

@@ -21,7 +21,7 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h1 className={styles.logo}>TrueCaller Dashboard</h1>
+      <h1 className={styles.logo}>Contact Dashboard</h1>
       <div className={styles.userSection}>
         <FaUserCircle className={styles.userIcon} />
         <span className={styles.username}>{username}</span>

@@ -385,7 +385,7 @@ const ContactList = () => {
               <th>Name</th>  
               <th>Email</th>  
               <th>Phone</th>  
-              <th>Added By</th>  
+              {/* <th>Added By</th>   */}
               <th>Spam</th>  
               <th>Actions</th>  
             </tr>  
@@ -403,12 +403,12 @@ const ContactList = () => {
                 <td>{contact.name}</td>  
                 <td>{contact.email}</td>  
                 <td>{contact.phoneNumber}</td>  
-                <td>{contact.addedBy}</td>  
+                {/* <td>{contact.addedBy}</td>  */}
                 <td>{contact.spam ? "Yes" : "No"}</td>  
                 <td>  
                 <button className={styles.updateButton} onClick={() => handleUpdateClick(contact)}>Update</button>
                   <button 
-    className={styles.blockButton} 
+    className={styles.blockbutton} 
     onClick={() => handleBlockContact(contact.phoneNumber)}
     disabled={blockedContacts[contact.phoneNumber]} // Disable immediately
   >

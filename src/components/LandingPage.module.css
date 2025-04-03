@@ -1,75 +1,142 @@
-   html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+/* Default Light Mode */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.landingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to right, #be6e6e, #ebd833);
+  color: white;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.textContainer {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  color: white;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: white;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Guest Button Styling */
+.guestButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.guestButton:hover {
+  background-color: #218838;
+}
+
+/* 🌙 Dark Mode */
+.darkMode body {
+  background-color: #121212;
+}
+
+.darkMode .landingContainer {
+  background: linear-gradient(to right, #3a3a3a, #6f6f6f);
+}
+
+.darkMode .title, .darkMode .subtitle {
+  color: white;
+}
+
+.darkMode .button {
+  background-color: #1a73e8;
+}
+
+.darkMode .button:hover {
+  background-color: #0f5bbf;
+}
+
+.darkMode .guestButton {
+  background-color: #66b933;
+}
+
+.darkMode .guestButton:hover {
+  background-color: #4a8b28;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 1.8em; /* Slightly reduce title size */
   }
 
-   .landingContainer {
-    /* text-align: center;
-    padding: 20px; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background: linear-gradient(to right, #be6e6e, #ebd833);
-    color: white;
-    text-align: center;
-  }
-  
-  .textContainer {
-    margin-bottom: 20px;
-  }
-  
-  .title {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-  }
-  
   .subtitle {
-    font-size: 1.2em;
-    color: white;
+    font-size: 1em; /* Adjust subtitle for readability */
   }
-  
+
   .buttonContainer {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 15px;
   }
-  
-  .button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Guest Button Styling */
+
+  .button,
   .guestButton {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
+    width: 80%;
+    padding: 12px;
   }
-  
-  .guestButton:hover {
-    background-color: #218838;
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 1.5em;
   }
-  
+
+  .subtitle {
+    font-size: 0.9em;
+  }
+
+  .button,
+  .guestButton {
+    width: 90%;
+    font-size: 14px;
+  }
+}

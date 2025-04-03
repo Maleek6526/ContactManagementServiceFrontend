@@ -7,6 +7,8 @@ import NumberVerification from "../Sidebar/NumberVerification";
 import ContactList from "../ContactList";
 import BlockedContacts from "../BlockedContact";
 import styles from "./Dashboard.module.css";
+import SpamReport from "../SpamReport";
+import Settings from "../Settings";
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
@@ -38,10 +40,14 @@ const Dashboard = () => {
           </motion.div>
         ) : activeComponent === "contactList" ? (
           <ContactList />
-        ) : activeComponent === "numberVerification" ? (
+        ) :activeComponent === "spamReports" ? (
+          <SpamReport />
+        ): activeComponent === "numberVerification" ? (
           <NumberVerification />
         ) : activeComponent === "blockedContacts" ? (
           <BlockedContacts />
+        ): activeComponent === "settings" ? (
+          <Settings />
         ) : (
           <div>Component Not Found</div>
         )}

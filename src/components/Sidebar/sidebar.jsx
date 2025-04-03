@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { FaHome, FaAddressBook, FaExclamationTriangle, FaCog, FaSignOutAlt, FaBars, FaCheckCircle, FaBan } from "react-icons/fa"; // Added FaBan for blocked contacts icon
+import { FaHome, FaAddressBook, FaExclamationTriangle, FaCog, FaSignOutAlt, FaBars, FaCheckCircle, FaBan } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const Sidebar = ({ setActiveComponent }) => {

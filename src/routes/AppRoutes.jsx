@@ -5,7 +5,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../components/DashboardPage";
 import GuestDashboard from "../components/GuestDashboard";
-
+import Settings from "../components/Settings";
 // 🔹 Check if User is Logged In
 const isAuthenticated = () => {
   return localStorage.getItem("user");
@@ -29,6 +29,7 @@ const AppRoutes = () => {
       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 };

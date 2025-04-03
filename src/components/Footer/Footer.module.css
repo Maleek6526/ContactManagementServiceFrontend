@@ -34,3 +34,39 @@
 .ptag{
   color: white;
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 15px;
+  }
+
+  .socialIcons {
+    gap: 10px; /* Reduce gap for smaller screens */
+  }
+
+  .icon {
+    font-size: 20px; /* Adjust icon size */
+  }
+
+  .helpText {
+    font-size: 13px; /* Slightly smaller text */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    padding: 10px;
+  }
+
+  .socialIcons {
+    gap: 8px;
+  }
+
+  .icon {
+    font-size: 18px; /* Further reduce icon size */
+  }
+
+  .helpText {
+    font-size: 12px;
+  }
+}

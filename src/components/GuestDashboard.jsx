@@ -21,15 +21,12 @@ const GuestDashboard = () => {
     if (number.startsWith("+234") && number.length === 14) {
       return number;
     }
-
     if (number.startsWith("234") && number.length === 13) {
       return "+" + number;
     }
-
     if (number.startsWith("0") && number.length === 11) {
       return "+234" + number.substring(1);
     }
-
     throw new Error("Invalid phone number format");
   };
 

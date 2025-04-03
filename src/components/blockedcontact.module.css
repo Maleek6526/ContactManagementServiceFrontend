@@ -57,3 +57,68 @@
     background-color: #ff3333;
   }
   
+
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 95%;
+      padding: 15px;
+      max-height: none;
+    }
+  
+    h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  
+    .contactItem {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 8px;
+    }
+  
+    .name {
+      font-size: 16px;
+    }
+  
+    .phone,
+    .email {
+      font-size: 14px;
+    }
+  
+    .unblockButton {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .container {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    h2 {
+      font-size: 18px;
+    }
+  
+    .contactItem {
+      padding: 6px;
+      margin: 3px 0;
+    }
+  
+    .name {
+      font-size: 14px;
+    }
+  
+    .phone,
+    .email {
+      font-size: 12px;
+    }
+  
+    .unblockButton {
+      font-size: 12px;
+      padding: 6px;
+    }
+  }
+  

@@ -1,3 +1,4 @@
+/* Default Light Mode */
 body {
   margin: 0;
   padding: 0;
@@ -7,6 +8,7 @@ body {
   align-items: center;
   background: url("/src/assets/jackson-sophat-_t-l5FFH8VA-unsplash.jpg") no-repeat center center/cover;
   font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .loginContainer {
@@ -18,6 +20,7 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
+  transition: background 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
 .error {
@@ -64,4 +67,68 @@ button:hover {
 
 .switchAuth a:hover {
   text-decoration: underline;
+}
+
+/* 🌙 Dark Mode */
+.darkMode body {
+  background: #121212;
+}
+
+.darkMode .loginContainer {
+  background: #333;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.darkMode .loginContainer input {
+  background: #444;
+  border: 1px solid #555;
+  color: white;
+}
+
+.darkMode .loginContainer button {
+  background: #1a73e8;
+}
+
+.darkMode .loginContainer button:hover {
+  background: #0f5bbf;
+}
+
+.darkMode .switchAuth a {
+  color: #1a73e8;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+  .loginContainer {
+    width: 90%; /* Make login box flexible */
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .form input {
+    width: 95%; /* Increase input width */
+  }
+
+  button {
+    width: 100%; /* Full-width button for better UX */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .loginContainer {
+    width: 95%; /* Maximize available space */
+    padding: 10px;
+  }
+
+  .form input {
+    width: 90%; /* Ensure input fields take full width */
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+
+  .switchAuth {
+    font-size: 12px;
+  }
 }

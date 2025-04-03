@@ -15,6 +15,10 @@ html, body {
   overflow-y: auto; 
 }  
 
+td{
+  color: black;
+}
+
 .header {  
   display: flex;  
   justify-content: space-between;  
@@ -179,6 +183,83 @@ html, body {
 .blockbutton {
   margin-left: 20px;
   gap: 10px;  
+  width: 90px;
   background: #dc3545;  
   color: white;  
-}  
+}  @media screen and (max-width: 768px) {
+  .container {
+    width: 95%; /* Make the container take up more space on smaller screens */
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column; /* Stack header elements vertically */
+    align-items: flex-start;
+  }
+
+  .searchInput {
+    width: 100%; /* Ensure search input takes full width */
+  }
+
+  .table th,
+  .table td {
+    padding: 8px; /* Reduce padding for smaller screens */
+    font-size: 14px; /* Reduce font size */
+  }
+
+  .actions {
+    flex-direction: column; /* Stack action buttons vertically */
+    gap: 5px;
+  }
+
+  .button {
+    width: 100%; /* Make buttons full-width */
+    padding: 10px;
+  }
+
+  .updateFormContainer {
+    width: 90%; /* Make update form container fit mobile screens better */
+    padding: 15px;
+  }
+
+  .formInput {
+    width: 100%;
+  }
+
+  .blockbutton {
+    width: 100%; /* Make the block button full width */
+    margin-left: 0; /* Remove margin for better alignment */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .table th,
+  .table td {
+    font-size: 12px; /* Further reduce font size for very small screens */
+    padding: 6px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .button {
+    font-size: 14px;
+  }
+
+  .formInput {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .submitButton,
+  .cancelButton {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

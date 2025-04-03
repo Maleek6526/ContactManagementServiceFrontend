@@ -54,3 +54,37 @@
   cursor: pointer;
   z-index: 1000;
 }
+
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 15px;
+    transform: translateX(-100%);
+  }
+
+  .navList li {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .hamburger {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .sidebar {
+    width: 180px;
+    padding: 10px;
+  }
+
+  .navList li {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .hamburger {
+    font-size: 20px;
+  }
+}
