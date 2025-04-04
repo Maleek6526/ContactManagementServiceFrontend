@@ -23,7 +23,7 @@
 
 @media screen and (max-width: 768px) {
   .dashboard {
-    flex-direction: column; /* Stack sidebar and content */
+    flex-direction: column; 
   }
 
   .content {
@@ -32,13 +32,13 @@
   }
 
   .cards {
-    flex-direction: column; /* Stack cards vertically */
+    flex-direction: column;
     align-items: center;
     gap: 15px;
   }
 
   .verificationContainer {
-    margin-top: 100px; /* Reduce excessive margin */
+    margin-top: 100px;
     margin-bottom: 60px;
   }
 }

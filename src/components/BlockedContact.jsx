@@ -50,8 +50,8 @@ const BlockedContacts = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userEmail: user.userId,  // ✅ Fix: Use `userEmail` instead of `userId`
-          phoneNumber: phoneNumber,  // ✅ Make sure this is the phone number
+          userEmail: user.userId,
+          phoneNumber: phoneNumber,
         }),
       });
   
@@ -77,9 +77,8 @@ const BlockedContacts = () => {
   useEffect(() => {
     fetchBlockedContacts();
 
-    // Auto-refresh every 30 seconds
     intervalRef.current = setInterval(fetchBlockedContacts, 30000);
-    return () => clearInterval(intervalRef.current); // Clear interval on cleanup
+    return () => clearInterval(intervalRef.current);
   }, []);
 
   return (

@@ -1,4 +1,3 @@
-/* Default Light Mode */
 body {
   margin: 0;
   padding: 0;
@@ -69,7 +68,6 @@ button:hover {
   text-decoration: underline;
 }
 
-/* 🌙 Dark Mode */
 .darkMode body {
   background: #121212;
 }
@@ -97,30 +95,29 @@ button:hover {
   color: #1a73e8;
 }
 
-/* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
   .loginContainer {
-    width: 90%; /* Make login box flexible */
-    padding: 15px; /* Reduce padding for smaller screens */
+    width: 90%;
+    padding: 15px;
   }
 
   .form input {
-    width: 95%; /* Increase input width */
+    width: 95%;
   }
 
   button {
-    width: 100%; /* Full-width button for better UX */
+    width: 100%; 
   }
 }
 
 @media screen and (max-width: 480px) {
   .loginContainer {
-    width: 95%; /* Maximize available space */
+    width: 95%;
     padding: 10px;
   }
 
   .form input {
-    width: 90%; /* Ensure input fields take full width */
+    width: 90%;
     font-size: 14px;
   }
 

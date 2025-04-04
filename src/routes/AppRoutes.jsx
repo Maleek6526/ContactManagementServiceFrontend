@@ -6,12 +6,10 @@ import Register from "../components/Register";
 import Dashboard from "../components/DashboardPage";
 import GuestDashboard from "../components/GuestDashboard";
 import Settings from "../components/Settings";
-// 🔹 Check if User is Logged In
 const isAuthenticated = () => {
   return localStorage.getItem("user");
 };
 
-// 🔹 Protected Route (For Logged-in Users)
 const ProtectedRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" replace />;
 };

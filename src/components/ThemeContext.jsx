@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 
-// Create ThemeContext with a default empty object to prevent null errors
 export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({ children }) => {

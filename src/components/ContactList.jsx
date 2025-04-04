@@ -209,10 +209,9 @@ const ContactList = () => {
 
 
   const handleBlockContact = async (phoneNumber) => {
-    // Disable the button immediately after clicking
     setBlockedContacts((prev) => ({
       ...prev,
-      [phoneNumber]: true, // Mark this phone number as blocked immediately
+      [phoneNumber]: true,
     }));
   
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -385,7 +384,6 @@ const ContactList = () => {
               <th>Name</th>  
               <th>Email</th>  
               <th>Phone</th>  
-              {/* <th>Added By</th>   */}
               <th>Spam</th>  
               <th>Actions</th>  
             </tr>  
@@ -403,14 +401,13 @@ const ContactList = () => {
                 <td>{contact.name}</td>  
                 <td>{contact.email}</td>  
                 <td>{contact.phoneNumber}</td>  
-                {/* <td>{contact.addedBy}</td>  */}
                 <td>{contact.spam ? "Yes" : "No"}</td>  
                 <td>  
                 <button className={styles.updateButton} onClick={() => handleUpdateClick(contact)}>Update</button>
                   <button 
     className={styles.blockbutton} 
     onClick={() => handleBlockContact(contact.phoneNumber)}
-    disabled={blockedContacts[contact.phoneNumber]} // Disable immediately
+    disabled={blockedContacts[contact.phoneNumber]}
   >
     {blockedContacts[contact.phoneNumber] ? "Blocked" : "Block"}
   </button>

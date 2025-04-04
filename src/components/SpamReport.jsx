@@ -6,7 +6,6 @@ const SpamReport = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Function to fetch spam contacts
   const fetchSpamContacts = async () => {
     try {
       setLoading(true);
@@ -22,11 +21,10 @@ const SpamReport = () => {
     }
   };
 
-  // Fetch data when the component mounts & refresh every 5 seconds
   useEffect(() => {
     fetchSpamContacts();
-    const interval = setInterval(fetchSpamContacts, 5000); // Refresh every 5 seconds
-    return () => clearInterval(interval); // Cleanup on unmount
+    const interval = setInterval(fetchSpamContacts, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

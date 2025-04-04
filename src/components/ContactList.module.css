@@ -188,37 +188,37 @@ td{
   color: white;  
 }  @media screen and (max-width: 768px) {
   .container {
-    width: 95%; /* Make the container take up more space on smaller screens */
+    width: 95%;
     padding: 15px;
   }
 
   .header {
-    flex-direction: column; /* Stack header elements vertically */
+    flex-direction: column;
     align-items: flex-start;
   }
 
   .searchInput {
-    width: 100%; /* Ensure search input takes full width */
+    width: 100%;
   }
 
   .table th,
   .table td {
-    padding: 8px; /* Reduce padding for smaller screens */
-    font-size: 14px; /* Reduce font size */
+    padding: 8px;
+    font-size: 14px;
   }
 
   .actions {
-    flex-direction: column; /* Stack action buttons vertically */
+    flex-direction: column;
     gap: 5px;
   }
 
   .button {
-    width: 100%; /* Make buttons full-width */
+    width: 100%;
     padding: 10px;
   }
 
   .updateFormContainer {
-    width: 90%; /* Make update form container fit mobile screens better */
+    width: 90%;
     padding: 15px;
   }
 
@@ -227,8 +227,8 @@ td{
   }
 
   .blockbutton {
-    width: 100%; /* Make the block button full width */
-    margin-left: 0; /* Remove margin for better alignment */
+    width: 100%;
+    margin-left: 0; 
   }
 }
 
@@ -240,7 +240,7 @@ td{
 
   .table th,
   .table td {
-    font-size: 12px; /* Further reduce font size for very small screens */
+    font-size: 12px;
     padding: 6px;
   }
 

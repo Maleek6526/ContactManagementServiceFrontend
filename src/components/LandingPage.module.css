@@ -1,4 +1,3 @@
-/* Default Light Mode */
 html, body {
   margin: 0;
   padding: 0;
@@ -58,7 +57,6 @@ html, body {
   background-color: #0056b3;
 }
 
-/* Guest Button Styling */
 .guestButton {
   background-color: #28a745;
   color: white;
@@ -74,7 +72,6 @@ html, body {
   background-color: #218838;
 }
 
-/* 🌙 Dark Mode */
 .darkMode body {
   background-color: #121212;
 }
@@ -103,14 +100,14 @@ html, body {
   background-color: #4a8b28;
 }
 
-/* Media Queries for Responsiveness */
+
 @media screen and (max-width: 768px) {
   .title {
-    font-size: 1.8em; /* Slightly reduce title size */
+    font-size: 1.8em;
   }
 
   .subtitle {
-    font-size: 1em; /* Adjust subtitle for readability */
+    font-size: 1em;
   }
 
   .buttonContainer {

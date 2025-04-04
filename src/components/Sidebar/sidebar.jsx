@@ -35,7 +35,7 @@ const Sidebar = ({ setActiveComponent }) => {
           <li onClick={() => setActiveComponent("home")}><FaHome /> {isOpen && "Home"}</li>
           <li onClick={() => setActiveComponent("contactList")}><FaAddressBook /> {isOpen && "Contacts"}</li>
           <li onClick={() => setActiveComponent("spamReports")}><FaExclamationTriangle /> {isOpen && "Spam Reports"}</li>
-          <li onClick={() => setActiveComponent("blockedContacts")}><FaBan /> {isOpen && "Blocked Contacts"}</li> {/* Added this */}
+          <li onClick={() => setActiveComponent("blockedContacts")}><FaBan /> {isOpen && "Blocked Contacts"}</li>
           <li onClick={() => setActiveComponent("settings")}><FaCog /> {isOpen && "Settings"}</li>
           <li className={styles.logout} onClick={handleLogout}>
             <FaSignOutAlt /> {isOpen && "Logout"}
